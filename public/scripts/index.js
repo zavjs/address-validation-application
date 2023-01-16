@@ -32,10 +32,7 @@ const makeApiRequest = function (reqData) {
   formSpinner.className = formSpinner.className.replace(" disabled", "");
 
   const reqBody = JSON.stringify({
-    address: {
-      regionCode: "US",
-      addressLines: [reqData],
-    },
+    address: reqData,
   });
 
   console.log("2. shooting", reqBody);

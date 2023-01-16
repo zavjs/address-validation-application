@@ -5,9 +5,6 @@
   </div>
 </footer>
 
-<!-- SCRIPTS -->
-<script src="/scripts/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mig8447/lodash-debounce-throttle@4.17.5/dist/lodash-debounce-throttle.min.js"></script>
 </body>
 
 </html>

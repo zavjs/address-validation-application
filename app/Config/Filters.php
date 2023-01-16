@@ -42,7 +42,7 @@ class Filters extends BaseConfig
     ];
 
     public array $methods = [
-        'post' => ['csrf'],
+        'post' => [],
     ];
 
     public array $filters = [];

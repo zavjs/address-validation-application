@@ -11,10 +11,9 @@
 </head>
 
 <body>
-  <!-- HEADER: MENU + HERO SECTION -->
   <header class="p-3 text-center bg-light">
     <h1>
-      <a href="/" class="text-dark text-decoration-none h5"><?php echo $title; ?></a>
+      <a href="/" class="text-dark h5"><?php echo $title; ?></a>
     </h1>
-    <a href="/addresses">My saved addresses</a>
+    <a href="/list">My saved addresses</a>
   </header>

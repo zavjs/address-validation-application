@@ -31,6 +31,11 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->post('search', 'Address::search');
+// $routes->match(['get', 'post'], 'search', 'Address::search');
+$routes->match(['post'], 'save', 'Address::save');
+$routes->match(['get'], 'list', 'Address::list');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

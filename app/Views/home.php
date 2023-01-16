@@ -3,10 +3,10 @@
         <fieldset class="step-one">
             <div class="form-group mb-5">
                 <legend>
-                    <b>Step 1:</b> Provide a mailing address
+                    <label for="address-search" role="button"><b>Step 1:</b> Provide a mailing address</label>
                 </legend>
                 <div class="d-flex">
-                    <input id="address-search" type="text" name="address-search" class="js-mailing-input w-100 p-2" placeholder="Mailing address" />
+                    <input id="address-search" type="text" name="address-search" class="js-mailing-input w-100 p-2" placeholder="e.g: 2480 South Drive, Houston" />
                     <div class="ml-4">
                         <div class="spinner-border text-dark js-form-spinner spinner disabled" role="status">
                             <span class="sr-only">Loading...</span>
@@ -17,7 +17,7 @@
         </fieldset>
         <form action="/save" method="post">
             <?= csrf_field() ?>
-            <fieldset class="step-two">
+            <fieldset class="step-two disabled">
                 <legend>
                     <b>Step 2:</b> Confirm the address
                 </legend>
@@ -51,3 +51,6 @@
             </fieldset>
         </form>
     </section>
+    <!-- SCRIPTS -->
+    <script src="/scripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mig8447/lodash-debounce-throttle@4.17.5/dist/lodash-debounce-throttle.min.js"></script>
