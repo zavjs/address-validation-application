@@ -1,0 +1,39 @@
+.content-wrapper {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+/** step one - state */
+.selection-container:has(input) {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.selection-container:has(input:checked) {
+  border-width: 1px;
+  border-color: red;
+}
+
+/** step two - state */
+.step-two.disabled {
+  opacity: 0.1;
+}
+
+.spinner.disabled,
+.step-two.disabled .container {
+  display: none;
+}
+
+.spinner:not(.disabled),
+.step-two:not(.disabled) .container {
+  display: block;
+}
+
+.submit-container button {
+  display: none;
+}
+
+.selection-container:has(input:checked)~.submit-container button {
+  display: block;
+}
