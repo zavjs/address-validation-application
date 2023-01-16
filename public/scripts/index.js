@@ -35,7 +35,6 @@ const makeApiRequest = function (reqData) {
     address: reqData,
   });
 
-  console.log("2. shooting", reqBody);
   const validationApiEndpoint = "/search";
   const response = fetch(validationApiEndpoint, {
     method: "POST",
@@ -58,11 +57,6 @@ const makeApiRequest = function (reqData) {
 
       stepTwoEl.className = stepTwoEl.className.replace(" disabled", "");
       formSpinner.className = formSpinner.className += " disabled";
-
-      console.log({
-        reqData,
-        formattedAddress,
-      });
     });
 };
 
