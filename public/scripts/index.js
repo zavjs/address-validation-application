@@ -1,77 +1,77 @@
-const mailingInputModule = function (selector, validationCb) {
-  const setListeners = function () {
-    try {
-      const mailingInput = document.querySelector(selector);
-      mailingInput.addEventListener("keyup", validationCb);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+window.onload = function () {  
+  $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $('.tab-content input').prop('disabled', true);
 
-  return {
-    init: setListeners,
-  };
-};
-
-const makeApiRequest = function (reqData) {
-  const stepTwoEl = document.querySelector(".step-two");
-
-  const customAddressEl = document.querySelector(".js-custom-address");
-  const customAddressInputEl = document.querySelector(
-    ".js-recommended-address-input"
-  );
-
-  const recommendedAddressEl = document.querySelector(
-    ".js-recommended-address"
-  );
-  const recommendedAddressInputEl = document.querySelector(
-    ".js-recommended-address-input"
-  );
-
-  const formSpinner = document.querySelector(".js-form-spinner");
-  formSpinner.className = formSpinner.className.replace(" disabled", "");
-
-  const reqBody = JSON.stringify({
-    address: reqData,
+    const target = $(this).attr('href');
+    $(target).find('input').prop('disabled', false);
   });
 
-  const validationApiEndpoint = "/search";
-  const response = fetch(validationApiEndpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: reqBody,
-  });
+  // form management
+  function submitData(data) {
+    const formData = new FormData(data);
+    const formProps = Object.fromEntries(formData);
+    const reqBody = JSON.stringify(formProps);
 
-  response
-    .then((res) => res.json())
-    .then((resData) => {
-      const formattedAddress = resData?.result?.address?.formattedAddress || "";
+    const validationApiEndpoint = "/search";
+    fetch(validationApiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: reqBody,
+    })
+      .then(res => res?.json())
+      .then(data => {
+        $('.js-errors').empty();
+        if (data?.status === 200) {
+          // recommended
+          const firstAddressLineEl = $('.js-first-line');
+          const secondAddressLineEl = $('.js-city-state-line');
 
-      recommendedAddressEl.innerHTML = formattedAddress;
-      recommendedAddressInputEl.value = formattedAddress;
+          // user-created
+          const addressLineOneEl = $('.js-you-address-line-1');
+          const addressLineTwoEl = $('.js-you-address-line-2');
+          const cityEl = $('.js-you-city');
+          const stateEl = $('.js-you-state');
+          const zipEl = $('.js-you-zip');
+          
+          // text insertions
+          const { firstAddressLine = '', cityStateZipAddressLine = '', } = data?.data?.result?.uspsData?.standardizedAddress;
 
-      customAddressEl.innerHTML = reqData;
-      customAddressInputEl.innerHTML = reqData;
+          firstAddressLineEl.text(firstAddressLine);
+          secondAddressLineEl.text(cityStateZipAddressLine);
+            
+          addressLineOneEl.text(formProps['address-line-1'] || '');
+          addressLineTwoEl.text(formProps['address-line-2'] || '');
+          cityEl.text(formProps['city'] || '');
+          stateEl.text(formProps['state'] || '');
+          zipEl.text(formProps['zip'] || '');
 
-      stepTwoEl.className = stepTwoEl.className.replace(" disabled", "");
-      formSpinner.className = formSpinner.className += " disabled";
-    });
-};
+          // capture full address
+          const fullUserCreated = $('#you code').text();
+          const recommended = $('#recommended code').text();
 
-window.onload = function () {
-  const handleApiResponse = _.debounce(function (e) {
-    const { value } = e.target;
+          // show modal
+          $('#confirmationModal').modal('show');
+          
+          $('#text-you').val(fullUserCreated);
+          $('#text-recommended').val(recommended);
+      
+        } else {
+          const messages = Object.values(data?.message ?? {});
+          messages.forEach(function (message) {
+            $('.js-errors').append(`<p class="text-danger">${message}</p>`);
+          })
+        }
+        $('.js-spinner').addClass('d-none');
+      })
+  }
 
-    if (value) {
-      makeApiRequest(value);
-    }
-  }, 1000);
-
-  const inputModule = mailingInputModule(
-    ".js-mailing-input",
-    handleApiResponse
-  );
-  inputModule.init();
+  const address_form = document.forms[0];
+  address_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('.js-spinner').removeClass('d-none');
+    submitData(e.target);
+  })
 };
