@@ -27,7 +27,9 @@ window.onload = function () {
         if (data?.status === 200) {
           // recommended
           const firstAddressLineEl = $('.js-first-line');
-          const secondAddressLineEl = $('.js-city-state-line');
+          const secondLineEl = $('.js-second-line');
+          const cityStateZipAddressLineEl = $('.js-city-state-line');
+          const recStateLineEl = $('.js-state');
 
           // user-created
           const addressLineOneEl = $('.js-you-address-line-1');
@@ -37,11 +39,13 @@ window.onload = function () {
           const zipEl = $('.js-you-zip');
           
           // text insertions
-          const { firstAddressLine = '', cityStateZipAddressLine = '', } = data?.data?.result?.uspsData?.standardizedAddress;
+          const { firstAddressLine = '', secondAddressLine, cityStateZipAddressLine = '', state = ''} = data?.data?.result?.uspsData?.standardizedAddress;
 
           firstAddressLineEl.text(firstAddressLine);
-          secondAddressLineEl.text(cityStateZipAddressLine);
-            
+          secondLineEl.text(secondAddressLine);
+          cityStateZipAddressLineEl.text(cityStateZipAddressLine);
+          recStateLineEl.text(state);
+
           addressLineOneEl.text(formProps['address-line-1'] || '');
           addressLineTwoEl.text(formProps['address-line-2'] || '');
           cityEl.text(formProps['city'] || '');

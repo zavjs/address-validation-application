@@ -89,7 +89,9 @@
                                         <div class="p-3 border rounded mt-2">
                                             <code>
                                                 <p class="js-first-line m-0"></p>
+                                                <p class="js-second-line m-0"></p>
                                                 <p class="js-city-state-line m-0"></p>
+                                                <p class="js-state m-0"></p>
                                             </code>
                                             <input type="hidden" id="text-recommended" name="recommended" disabled />
                                         </div>
