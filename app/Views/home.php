@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <legend>
                             <h3 class="mb-0">Address validator</h3>
-                            <b class="h6">Validate/standardizes addresses</b>
+                            <b class="h6">Validate/standardize addresses</b>
                             <hr />
                         </legend>
                         <div class="form-group mb-2">
