@@ -2,8 +2,6 @@
 
 Welcome to the Address Validator.
 
-Overall there's plenty of opportunity for improvement for example in the modularization of scripts and backend modules, but the main focus is functionality and good security practices given the limited time invested. 
-
 ### The App
 
 The app is divided in two sections:
